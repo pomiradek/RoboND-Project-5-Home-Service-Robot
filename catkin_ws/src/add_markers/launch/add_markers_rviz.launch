@@ -1,0 +1,3 @@
+<launch>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d /home/robond/workspace/RoboND-Project-5-Home-Service-Robot/catkin_ws/src/rvizConfig/marker.rviz"/>
+</launch>

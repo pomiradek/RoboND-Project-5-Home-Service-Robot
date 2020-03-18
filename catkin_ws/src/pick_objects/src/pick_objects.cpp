@@ -20,15 +20,19 @@ int main(int argc, char** argv){
   move_base_msgs::MoveBaseGoal goal;
 
   // set up the frame parameters
-  goal.target_pose.header.frame_id = "base_footprint";
+  goal.target_pose.header.frame_id = "map";
   goal.target_pose.header.stamp = ros::Time::now();
 
   // Define a position and orientation for the robot to reach
-  goal.target_pose.pose.position.y = 1.0;
-  goal.target_pose.pose.orientation.w = -1.0;
+  goal.target_pose.pose.position.x = -1.0;
+  goal.target_pose.pose.position.y = 2.0;
+  goal.target_pose.pose.position.z = 0.0;
+  goal.target_pose.pose.orientation.x = 0.0;
+  goal.target_pose.pose.orientation.y = 0.0;
+  goal.target_pose.pose.orientation.w = 1.0;
 
    // Send the goal position and orientation for the robot to reach
-  ROS_INFO("Sending goal 1");
+  ROS_INFO("Going to pickup zone");
   ac.sendGoal(goal);
 
   // Wait an infinite time for the results
@@ -43,19 +47,17 @@ int main(int argc, char** argv){
   if (ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
 
 	ros::Duration(5).sleep();
-	move_base_msgs::MoveBaseGoal goal2;
 
-	// set up the frame parameters
-	goal2.target_pose.header.frame_id = "base_footprint";
-	goal2.target_pose.header.stamp = ros::Time::now();
+	goal.target_pose.header.stamp = ros::Time::now();
 
 	// Define a position and orientation for the robot to reach
-	goal2.target_pose.pose.position.x = 1.0;
-	goal2.target_pose.pose.orientation.w = 1.0;
+	goal.target_pose.pose.position.x = 2.0;
+        goal.target_pose.pose.position.y = -2.5;
+	goal.target_pose.pose.orientation.w = 1.0;
 
 	// Send the goal position and orientation for the robot to reach
 	ROS_INFO("Going to drop off zone");
-	ac.sendGoal(goal2);
+	ac.sendGoal(goal);
 
 	// Wait an infinite time for the results
 	ac.waitForResult();
