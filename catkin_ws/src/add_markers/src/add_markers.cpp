@@ -38,7 +38,7 @@ void odom_callback(const nav_msgs::Odometry::ConstPtr &msg)
   ROS_INFO("Pose y: %f", pose_y);
   ROS_INFO("Target dsitance: %f", target_dist);
 
-  if (target_dist < 1.0) {
+  if (target_dist < 0.5) {
         // Pick up zone reached
 	if (!is_going_to_target) {
 		    pickup_zone_reached = true;
